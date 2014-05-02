@@ -1,0 +1,19 @@
+div.input-group, div.message, div.tip {
+	max-width: 800px;
+}
+
+div.tip {
+	margin-top: 20px;
+}
+
+.message {
+	margin-top: 20px;
+}
+
+.message dl dt {
+	width: 100px;
+}
+
+.message dl dd {
+	margin-left: 120px;
+}

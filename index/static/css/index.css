@@ -1,0 +1,24 @@
+.link-block {
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+ul.link {
+	padding-left: 0;
+	font-size: 16px;
+	line-height: 1.8em;
+}
+
+ul.link li {
+	list-style-image: none;
+	list-style-type: none;
+}
+
+ul.link li a {
+	text-decoration: none;
+}
+
+ul.link li a:hover {
+	text-decoration: none;
+}

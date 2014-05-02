@@ -1,0 +1,18 @@
+form>div.form-group {
+	clear: both;
+}
+
+form>div>button {
+	margin-right: 10px;
+}
+
+form>div>textarea {
+	max-width: 800px;
+	float: left;
+	margin-bottom: 8px;
+}
+
+span.message {
+	margin-left: 5px;
+	color: red;
+}
