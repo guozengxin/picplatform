@@ -17,13 +17,18 @@
 		图片黑名单查询
 	</legend>
 	<div class="input-group">
-		<span class="input-group-addon">URL</span>
+		<span class="input-group-addon">URL或DOCID</span>
 		<input type="text" class="form-control" id="url-input" placeholder="请输入URL"></input>
 		<span class="input-group-btn">
 			<button class="btn btn-default" type="button" id="bl-search">查询</button>
 		</span>
 	</div>
-	<span class="message"></span>
+	<div class="alert alert-warning tip" id="tip">
+	</div>
+	<div class="message" id="message" style="display:none">
+		<dl class="dl-horizontal">
+		</dl>
+	</div>
 {% endblock %}
 
 

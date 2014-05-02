@@ -24,6 +24,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print ''
   print 'Functions:'
   print '  string filter(string inStr, string mf, string picfilter1)'
+  print '  string getdocid(string url)'
   print ''
   sys.exit(0)
 
@@ -80,6 +81,12 @@ if cmd == 'filter':
     print 'filter requires 3 args'
     sys.exit(1)
   pp.pprint(client.filter(args[0],args[1],args[2],))
+
+elif cmd == 'getdocid':
+  if len(args) != 1:
+    print 'getdocid requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.getdocid(args[0],))
 
 else:
   print 'Unrecognized method %s' % cmd

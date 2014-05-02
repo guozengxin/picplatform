@@ -4,6 +4,7 @@
 #include "gen-cpp/Blacklist.h"
 #include "Configuration.hpp"
 #include "ServerConfig.h"
+#include "SogouLog.h"
 
 #include <protocol/TBinaryProtocol.h>
 #include <server/TSimpleServer.h>
@@ -96,12 +97,12 @@ public:
 				}
 			}
 		}
-		fprintf(stderr, "loadBlacklist [URL: %d] [site: %d] [domain: %d] [mf: %d] [picfilter1: %d]\n", totalURL, totalSite, totalDomain, totalMF, totalPicFilter1);
+		SOGOU_LOG(LM_INFO, "loadBlacklist [URL: %d] [site: %d] [domain: %d] [mf: %d] [picfilter1: %d]\n", totalURL, totalSite, totalDomain, totalMF, totalPicFilter1);
 	}
 
 	void filter(std::string& _return, const std::string& url, const std::string& mf, const std::string& picfilter1) {
 		// Your implementation goes here
-		fprintf(stderr, "[INPUT] url: %s mf: %s picfilter1: %s\n", url.c_str(), mf.c_str(), picfilter1.c_str());
+		SOGOU_LOG(LM_INFO, "[INPUT] url: %s mf: %s picfilter1: %s\n", url.c_str(), mf.c_str(), picfilter1.c_str());
 		gDocID_t docid;
 		siteID_t siteid;
 		domainID_t domainid;
@@ -128,7 +129,7 @@ public:
 		if (picfilter1Value > 0 && picfilter1Map.find(picfilter1Value) != picfilter1Map.end()) {
 			_return.append("picfilter1 ");
 		}
-		fprintf(stderr, "[FilterResult] %s\n", _return.c_str());
+		SOGOU_LOG(LM_INFO, "[FilterResult] %s\n", _return.c_str());
 	}
 
 	void getdocid(std::string& _return, const std::string& url) {
@@ -152,7 +153,7 @@ int loadConfiguration(const char* filename, shared_ptr<ServerConfig> cfg) {
 		key = "Port";
 		cfg->port = section.Value<int>("Port", 0);
 		if (cfg->port == 0) {
-			fprintf(stderr, "%s config is not found in section %s\n", key.c_str(), s.c_str());
+			SOGOU_LOG(LM_INFO, "%s config is not found in section %s\n", key.c_str(), s.c_str());
 			return 1;
 		}
 		cfg->blFile = section.Value<std::string>("BlacklistPath", "");
@@ -162,12 +163,12 @@ int loadConfiguration(const char* filename, shared_ptr<ServerConfig> cfg) {
 
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		fprintf(stderr, "need configuration file\n");
+		SOGOU_LOG(LM_INFO, "need configuration file\n");
 		exit(1);
 	}
 	shared_ptr<ServerConfig> cfg(new ServerConfig);
 	if (loadConfiguration(argv[1], cfg) != 0) {
-		fprintf(stderr, "load configuration error\n");
+		SOGOU_LOG(LM_INFO, "load configuration error\n");
 		exit(1);
 	}
 	shared_ptr<BlacklistHandler> handler(new BlacklistHandler());

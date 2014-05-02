@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 
 from service import base64_util
 
@@ -25,7 +25,7 @@ def base64_encode(request):
         response['status'] = False
         response['info'] = '转换失败'
     response['result'] = result
-    return HttpResponse(simplejson.dumps(response))
+    return HttpResponse(json.dumps(response))
 
 
 def base64_decode(request):
@@ -39,4 +39,4 @@ def base64_decode(request):
         response['status'] = False
         response['info'] = '转换失败'
     response['result'] = result
-    return HttpResponse(simplejson.dumps(response))
+    return HttpResponse(json.dumps(response))
