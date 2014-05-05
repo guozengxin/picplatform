@@ -33,12 +33,20 @@ def blacklist_filter(url, mf, picfilter1):
     return result
 
 
-def url2Docid(url):
+def url2Docid(dataIn):
     host, port = settings.thrift_host, settings.thrift_port
     transport, client = init(host, port)
-    docid = client.getdocid(url)
+    dataOut = None
+    print type(dataIn)
+    if type(dataIn) != list:
+        dataOut = client.getdocid(dataIn)
+    else:
+        dataOut = []
+        for url in dataIn:
+            docid = client.getdocid(url)
+            dataOut.append(docid)
     close(transport)
-    return docid
+    return dataOut
 
 
 def getVal(line):
@@ -59,6 +67,7 @@ def getOffsum(url):
         result['picurl'] = url
     else:
         result['errinfo'] = '输入串格式错误'
+        return result
     basedir = '/search/guozengxin/task/picplatform/search/script/'
     cmd = 'cd ' + basedir + ' && ./thrift_reader ' + docid
     targetDir = os.path.join(basedir, 'data')
@@ -88,6 +97,14 @@ def getOffsum(url):
         result['errinfo'] = '读取offsum错误'
     result['docid'] = docid
     return result
+
+
+def docid2url(docidArr):
+    urlArr = []
+    for docid in docidArr:
+        r = getOffsum(docid)
+        urlArr.append(r['picurl'])
+    return urlArr
 
 
 if __name__ == '__main__':

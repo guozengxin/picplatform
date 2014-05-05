@@ -1,2 +1,8 @@
 *.pyc
 *.o
+
+# ignore template data and log
+search/script/data/
+search/thrift_server/blserver
+search/thrift_server/data/
+search/thrift_server/log/
