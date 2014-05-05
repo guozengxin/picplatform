@@ -1,0 +1,15 @@
+form.form-horizontal {
+	max-width: 800px;
+}
+
+select.form-control {
+  width: 200px;
+}
+
+div.tip {
+  float: left;
+}
+
+div.result{
+  clear:both;
+}

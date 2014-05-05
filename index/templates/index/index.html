@@ -1,23 +1,55 @@
 {% extends "index/base.html" %}
+{% load url from future %}
 
 {% block title %} 图片数据积累工具 {% endblock %}
 
+{% block style %}
+	<link type="text/css" href="{{ STATIC_URL }}css/index.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 	{% include "index/navbar.html" %}
-	<div class="col-md-4 link-block">
+	<div class="col-md-3 link-block">
 		<legend>
 			<small>工具</small>
 		</legend>
-		<div class="link">
-
-		</div>
+		<ul class="link">
+			<li><a href="http://10.11.215.156/picfast/index.html" target="_blank">图片快速更新</a></li>
+			<li><a href="http://10.11.215.156/calculatemf/index.php" target="_blank">mf值计算工具</a></li>
+			<li><a href="{% url 'tool:urlbase64' %}">redirect链接转换</a></li>
+			<li><a href="http://10.12.8.170/getpage2.html" target="_blank">快速PA</a></li>
+		</ul>
 	</div>
-	<div class="col-md-4 link-block">
+	<div class="col-md-3 link-block">
 		<legend>
 			<small>图片查询</small>
 		</legend>
-		<div class="link">
-		</div>
+		<ul class="link">
+			<li><a href="http://10.136.127.182/index.php/ShowPicurlInfo256/showSearchPicurlInfo" target="_blank">picURLlib查询</a></li>
+			<li><a href="http://op.sogou-inc.com/magic/" target="_blank">magic查询</a></li>
+            <li><a href="{% url 'search:docid2url' %}">url和docid批量转换</a></li>
+		</ul>
+	</div>
+	<div class="col-md-3 link-block">
+		<legend>
+			<small>黑名单相关</small>
+		</legend>
+		<ul class="link">
+			<li><a href="{% url 'search:blacklist' %}">黑名单查询</a></li>
+			<li>黑名单添加(mf/picfilter1)[暂不可用]</li>
+			<li><a href="http://umis.op.sogou-inc.com/index.jsp" target="_blank">umis系统</a></li>
+		</ul>
+	</div>
+	<div class="col-md-3 link-block">
+		<legend>
+			<small>平台入口</small>
+		</legend>
+		<ul class="link">
+			<li><a href="http://rsync.master01.dragon.hadoop.sogou-op.org:50030/jobtracker.jsp" target="_blank">Dragon Jobtracker</a></li>
+			<li><a href="http://10.16.128.161:50030/jobtracker.jsp" target="_blank">晨曦 Jobtracker</a></li>
+			<li><a href="http://10.16.128.162:50075/browseDirectory.jsp?dir=/" target="_blank">晨曦 HDFS</a></li>
+			<li><a href="http://xwiki.sogou-inc.com/xwiki/bin/view/VS_Department/%E5%9B%BE%E7%89%87%E6%90%9C%E7%B4%A2" target="_blank">图片搜索xwiki</a></li>
+		</ul>
 	</div>
 {% endblock %}
 
