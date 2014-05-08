@@ -1,19 +1,22 @@
-div.input-group, div.message, div.tip {
-	max-width: 800px;
+div.input-group {
+  width: 100%;
 }
 
-div.tip {
-	margin-top: 20px;
+button.btn-search {
+  clear: both;
+  margin-top: 10px;
 }
 
 .message {
-	margin-top: 20px;
+  clear: both;
+  margin-top : 20px;
+  margin-left: 10px;
 }
 
 .message dl dt {
-	width: 100px;
+  width: 100px;
 }
 
 .message dl dd {
-	margin-left: 120px;
+  margin-left: 120px;
 }

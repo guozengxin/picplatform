@@ -59,8 +59,9 @@ def getVal(line):
 
 def getOffsum(url):
     import os
+    import re
     result = {'picurl': '', 'docid': '', 'mf': '', 'picfilter1': '', 'errinfo': ''}
-    if len(url) == 66 and not url.startswith('http'):
+    if len(url) == 66 and re.match(r'[0-9a-f-]', url):
         docid = url
     elif url.startswith('http'):
         docid = url2Docid(url)
@@ -74,7 +75,6 @@ def getOffsum(url):
     cmd += ' ' + targetDir
     os.system(cmd)
     tpageFile = os.path.join(targetDir, docid + '.txt')
-    print tpageFile
     if os.path.exists(tpageFile) and os.path.isfile(tpageFile):
         try:
             fp = open(tpageFile, 'r')
@@ -110,6 +110,8 @@ def docid2url(docidArr):
 if __name__ == '__main__':
     # result = blacklist_filter('http://photocdn.sohu.com/20060815/Img244809390.jpg', '0', '0')
     # print result
-    url = 'http://a1.att.hudong.com/78/14/01000000000000119081443774978.jpg'
+    url = 'a51423369a5d5a02-a4cc3e526a6b662f-2c083368e8a233e495df5d0d8557567c'
+    result = blacklist_filter(url, '0', '0')
+    print result
     # print url2Docid(url)
-    getOffsum(url)
+    # getOffsum(url)

@@ -61,7 +61,12 @@ $(function() {
 		$.post('/tool/base64-decode', {
 			'input': urlstr
 		}, function(data) {
-			$('#message').text(data.result);
+			if (data.status == true) {
+				$('#data-ta').val(data.result);
+				$('#message').text(data.info);
+			} else {
+				$('#message').text(data.info);
+			}
 		}, 'json');
 	}
 });

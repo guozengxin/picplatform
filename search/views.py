@@ -14,28 +14,34 @@ def blacklist(request):
 
 
 def bl_search(request):
-    url = request.POST.get('url')
-    url = url.strip()
-    response = thrift_service.getOffsum(url)
-    hitBlacklist = thrift_service.blacklist_filter(response['picurl'], response['mf'], response['picfilter1'])
-    hitItem = hitBlacklist.strip().split()
-    hitDesc = ''
-    for it in hitItem:
-        if it == 'url':
-            hitDesc += '命中url黑名单 '
-        elif it == 'site':
-            hitDesc += '命中site黑名单 '
-        elif it == 'domain':
-            hitDesc += '命中domain黑名单 '
-        elif it == 'mf':
-            hitDesc += '命中mf黑名单 '
-        elif it == 'picfilter1':
-            hitDesc += '命中picfilter1黑名单 '
-    if len(hitDesc) == 0:
-        hitDesc = '没有命中黑名单'
-    response['hit_desc'] = hitDesc
-    if len(response['errinfo']) == 0:
-        response['errinfo'] = '查询成功'
+    oriData = request.POST.get('datainput')
+    sep = findSep(oriData)
+    dataArr = oriData.split(sep)
+    response = {'result': [], 'all': 0, 'success': 0, 'warning': 0, 'error': 0, 'nohit': 0, 'hit': 0}
+    response['all'] = len(dataArr)
+    for data in dataArr:
+        picInfo = thrift_service.getOffsum(data)
+        picInfo['oriinput'] = data
+        hitBlacklist = ''
+        if len(picInfo['picurl']) > 0:
+            hitBlacklist = thrift_service.blacklist_filter(picInfo['picurl'], picInfo['mf'], picInfo['picfilter1'])
+        elif len(picInfo['docid']) > 0:
+            hitBlacklist = thrift_service.blacklist_filter(picInfo['docid'], picInfo['mf'], picInfo['picfilter1'])
+        else:
+            response['error'] += 1
+        if len(picInfo['errinfo']) == 0:
+            picInfo['errinfo'] = '成功'
+            response['success'] += 1
+        else:
+            response['warning'] += 1
+        hitItem = hitBlacklist.strip()
+        if len(hitItem) == 0:
+            response['nohit'] += 1
+            hitItem = '没有命中'
+        else:
+            response['hit'] += 1
+        picInfo['hititem'] = hitItem
+        response['result'].append(picInfo)
     return HttpResponse(json.dumps(response))
 
 
@@ -63,14 +69,14 @@ def docid_trans(request):
     if transType == 'docid2url' and inputType == 'direct-input':
         oriDocid = request.POST.get('inputtext')
         sep = findSep(oriDocid)
-        docidArr = oriDocid.split()
+        docidArr = oriDocid.split(sep)
         urlArr = thrift_service.docid2url(docidArr)
         responseData['tip'] = '输入数目%d，转换成功%d' % (len(docidArr), len(urlArr))
         responseData['result'] = sep.join(urlArr)
     elif transType == 'url2docid' and inputType == 'direct-input':
         oriUrl = request.POST.get('inputtext')
         sep = findSep(oriUrl)
-        urlArr = oriUrl.split()
+        urlArr = oriUrl.split(sep)
         docidArr = thrift_service.url2Docid(urlArr)
         responseData['tip'] = '输入数目%d，转换成功%d' % (len(urlArr), len(docidArr))
         responseData['result'] = sep.join(docidArr)
