@@ -36,6 +36,21 @@ static uint64_t strToInteger(const char *str)
 	return result;
 }       
 
+static bool isDocId256(const std::string& s){
+	if (s.length() != 66 || s[16] != '-' || s[33] != '-') {
+		return false;
+	}
+	for (size_t i = 0; i < s.length(); ++ i) {
+		if (i != 16 && i != 33) {
+			if ((s[i] >= 'a' && s[i] <= 'f') || (s[i] >= '0' && s[i] <= '9')) {
+			} else {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 class BlacklistHandler : virtual public BlacklistIf {
 
 	std::map<gDocID_t, int> docidMap;
@@ -100,13 +115,19 @@ public:
 		SOGOU_LOG(LM_INFO, "loadBlacklist [URL: %d] [site: %d] [domain: %d] [mf: %d] [picfilter1: %d]\n", totalURL, totalSite, totalDomain, totalMF, totalPicFilter1);
 	}
 
+
 	void filter(std::string& _return, const std::string& url, const std::string& mf, const std::string& picfilter1) {
 		// Your implementation goes here
 		SOGOU_LOG(LM_INFO, "[INPUT] url: %s mf: %s picfilter1: %s\n", url.c_str(), mf.c_str(), picfilter1.c_str());
 		gDocID_t docid;
 		siteID_t siteid;
 		domainID_t domainid;
-		if (!url2DocId(url.c_str(), &docid)) {
+		if (isDocId256(url)) {
+			if (!make_docid256(&docid, url.c_str())) {
+				_return.assign("ERROR");
+				return; 
+			}
+		} else if (!url2DocId(url.c_str(), &docid)) {
 			_return.assign("ERROR");
 			return; 
 		}

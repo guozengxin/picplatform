@@ -16,18 +16,28 @@
   <legend>
     图片黑名单查询
   </legend>
-  <div class="input-group">
-    <span class="input-group-addon">URL或DOCID</span>
-    <input type="text" class="form-control" id="url-input" placeholder="请输入URL"></input>
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button" id="bl-search">查询</button>
-    </span>
+  <div class="col-md-9">
+    <div class="input-group">
+      <textarea type="text" class="form-control" id="data-input" rows="6" placeholder="请输入URL或DOCID;每行一个"></textarea>
+    </div>
+    <button class="btn btn-default btn-search" type="button" id="bl-search">查询</button>
   </div>
-  <div class="alert alert-warning tip" id="tip">
+  <div class="alert alert-warning col-md-3" id="tip">
   </div>
   <div class="message" id="message" style="display:none">
     <dl class="dl-horizontal">
     </dl>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>原始输入</td>
+          <th title="黑名单共有5类：url, domain, site, mf, picfilter1">黑名单情况</td>
+          <th title="查询tpage时出现的错误，如果有错，则无法用mf值和picfilter1判断是否命中黑名单">查询出错情况</td>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
   </div>
 {% endblock %}
 
