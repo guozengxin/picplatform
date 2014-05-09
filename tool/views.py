@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 import json
 
-from service import base64_util
+from service import encoding
 
 # Create your views here.
 
@@ -16,7 +16,7 @@ def urlbase64(request):
 
 def base64_encode(request):
     inStr = request.POST.get('input', None)
-    result = base64_util.encode(inStr)
+    result = encoding.encodeBase64(inStr)
     response = {}
     if result is not None:
         response['status'] = True
@@ -30,7 +30,7 @@ def base64_encode(request):
 
 def base64_decode(request):
     inStr = request.POST.get('input', None)
-    result = base64_util.decode(inStr)
+    result = encoding.decodeBase64(inStr)
     response = {}
     if result is not None:
         response['status'] = True
