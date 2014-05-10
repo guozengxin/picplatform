@@ -34,10 +34,10 @@ $(function() {
 			'datainput': datainput
 		}, function(data) {
 			if (data.all == 1) {
-				addDesc('docid', data.docid);
-				addDesc('picurl', data.picurl);
-				addDesc('mf', data.mf);
-				addDesc('picfilter1', data.picfilter1);
+				addDesc('docid', data.result[0].docid);
+				addDesc('picurl', data.result[0].picurl);
+				addDesc('mf', data.result[0].mf);
+				addDesc('picfilter1', data.result[0].picfilter1);
 				$('#message dl').append('<hr>');
 			}
 			for (i = 0; i < data.result.length; ++i) {
