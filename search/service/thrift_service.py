@@ -37,7 +37,6 @@ def url2Docid(dataIn):
     host, port = settings.thrift_host, settings.thrift_port
     transport, client = init(host, port)
     dataOut = None
-    print type(dataIn)
     if type(dataIn) != list:
         dataOut = client.getdocid(dataIn)
     else:
