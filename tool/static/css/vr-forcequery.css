@@ -1,0 +1,8 @@
+input[type="text"] {
+  width: 300px;
+}
+
+span.message {
+  margin-left: 5px;
+  color: red;
+}
