@@ -5,11 +5,11 @@ from django.template import RequestContext
 from django.http import HttpResponse
 
 import json
-import urllib2
 import urllib
 import time
 
 from service import encoding
+from service import utility
 
 # Create your views here.
 
@@ -52,23 +52,27 @@ def vr_forcequery(request):
 
 def run_force(request):
     vrBase = 'http://cnc.pic.sogou.com.z.sogou-op.org/pics/newxmlvr.jsp?rawQuery=%s&query=%s&forceQuery=on'
-    webBase = 'http://www.sogou.com/web?query=%s&ie=utf8&_ast=%d&_asf=null&forceQuery=on'
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36'}
+    webBase = 'http://www.sogou.com/web?query=%s&forceQuery=on'
+    refreshBase = [
+        'http://cnc.www.sogou.com.z.sogou-op.org/web?wxc=on&query=%s&forceQuery=on',
+        'http://zw.www.sogou.com.z.sogou-op.org/web?wxc=on&query=%s&forceQuery=on',
+        'http://sjs.www.sogou.com.z.sogou-op.org/web?wxc=on&query=%s&forceQuery=on']
 
     query = request.POST.get('query', None)
     query = urllib.quote(query.encode('utf-8'))
     vrurl = vrBase % (query, query)
-    weburl = webBase % (query, int(time.time()))
+    weburl = webBase % (query)
+    refreshList = [s % (query) for s in refreshBase]
 
     ret = {'status': True, 'weburl': weburl, 'error': ''}
     try:
-        req = urllib2.Request(vrurl, headers=headers)
-        response = urllib2.urlopen(req)
-        content = response.read()
+        utility.refreshUrl(vrurl)
+        print 'refresh %s' % (vrurl)
         time.sleep(1)
-        del content
+        for url in refreshList:
+            utility.refreshUrl(url)
+            print 'refresh %s' % (url)
     except Exception, e:
         ret['error'] = str(e)
         ret['status'] = False
-    print ret
     return HttpResponse(json.dumps(ret))
