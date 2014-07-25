@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
-from service import thrift_service, file_service
+from service import thrift_service, file_service, bl_querysend
 import json
 
 # Create your views here.
@@ -106,4 +106,16 @@ def docid_trans(request):
         else:
             responseData['tip'] = '输入文件错误，请检查或者联系开发人员'
             responseData['result'] = None
+    return HttpResponse(json.dumps(responseData))
+
+
+def umis_force(request):
+    return render_to_response('search/umis-force.html', context_instance=RequestContext(request))
+
+
+def send2query(request):
+    typeInput = request.POST.get('typeInput')
+    dataInput = request.POST.get('dataInput')
+    ret, info = bl_querysend.send2query(typeInput, dataInput)
+    responseData = {'status': ret, 'info': info}
     return HttpResponse(json.dumps(responseData))

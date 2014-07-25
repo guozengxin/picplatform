@@ -1,0 +1,43 @@
+{% extends "index/base.html" %}
+{% load url from future %}
+
+{% block title %} 图片umis封禁force生效工具 {% endblock %}
+
+{% block style %}
+  <link type="text/css" href="{{ STATIC_URL }}css/umis-force.css" rel="stylesheet">
+{% endblock %}
+
+{% block script %}
+  <script src="{{ STATIC_URL }}js/umis-force.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+  {% include "index/navbar.html" %}
+  <legend>
+    图片umis封禁生效工具
+  </legend>
+  <div class="col-md-9">
+    <div class="alert alert-info" role="alert">
+      注意: <br/>
+      1. 由于umis封禁和query黑名单文件封禁之间不能完全同步的bug，导致umis封禁完全生效需要1.5-2个小时，本工具用于临时解决问题使用。<br/>
+      2. 本工具的作用是强制图片封禁生效，但是不具有永久存储的功能，还需要在umis名单里面添加。<br/>
+    </div>
+    <div class="input-group">
+      <div class="input-group-addon">封禁类型</div>
+      <select class="form-control" id="type-input">
+        <option>url</option>
+        <option>site</option>
+        <option>domain</option>
+        <option>picfilter1</option>
+        <option>mfid</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <div class="input-group-addon">输入数据</div>
+      <input type="text" class="form-control" id="data-input" placeholder=""></textarea>
+    </div>
+    <button class="btn btn-default" type="button" id="send2query">立即生效</button>
+    <div class="alert" id="message" role="alert"></div>
+    <div class="modal">
+  </div>
+{% endblock %}
