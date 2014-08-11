@@ -19,8 +19,9 @@
   <div class="col-md-9">
     <div class="alert alert-info" role="alert">
       注意: <br/>
-      1. 由于umis封禁和query黑名单文件封禁之间不能完全同步的bug，导致umis封禁完全生效需要1.5-2个小时，本工具用于临时解决问题使用。<br/>
-      2. 本工具的作用是强制图片封禁生效，但是不具有永久存储的功能，还需要在umis名单里面添加。<br/>
+      1. 由于umis封禁和query黑名单文件封禁之间不能完全同步的bug，导致umis封禁生效后2个小时内又可能会失效（之后会永久生效），本工具用于临时解决问题调试使用。<br/>
+      2. 本工具的作用是强制图片封禁生效，执行后forceQuery可以看到结果。<br/>
+      3. 这里不具有永久存储的功能，还需要在umis名单里面添加。<br/>
     </div>
     <div class="input-group">
       <div class="input-group-addon">封禁类型</div>

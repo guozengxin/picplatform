@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'index',
     'tool',
     'search',
+    'show',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,10 +61,11 @@ WSGI_APPLICATION = 'picplatform.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'picplatform',
-        'USER': 'web',
-        'PASSWORD': '',
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'picplatform',
+        # 'USER': 'web',
+        # 'PASSWORD': 'web',
+        # 'HOST': '10.11.215.156',
     }
 }
 
