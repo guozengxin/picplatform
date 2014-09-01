@@ -9,15 +9,15 @@ ul.link {
   padding-left: 0;
   font-size: 16px;
   line-height: 1.8em;
-  width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 ul.link li {
   list-style-image: none;
   list-style-type: none;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 ul.link li a {
