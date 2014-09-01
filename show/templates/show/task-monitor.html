@@ -1,0 +1,50 @@
+{% extends "index/base.html" %}
+{% load url from future %}
+
+{% block title %} 数据流程监控 {% endblock %}
+
+{% block style %}
+  <link type="text/css" href="{{ STATIC_URL }}css/task-monitor.css" rel="stylesheet">
+  <link type="text/css" href="{{ STATIC_URL }}css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block script %}
+  <script src="{{ STATIC_URL }}js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+  <script src="{{ STATIC_URL }}js/task-monitor.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+  {% include "index/navbar.html" %}
+  <legend>
+    数据积累流程监控
+  </legend>
+  <div class="col-md-8">
+    <div class="input-group">
+      <span class="input-group-addon">过滤(taskName, status)</span>
+      <input class="form-control" type="text" id="search-str" placeholder="">
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="input-group">
+      <span class="input-group-addon">日期</span>
+      <input class="form-control" type="text" readonly id="search-date">
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div>
+      <table class="table table-bordered result-table" id="result">
+        <thead>
+          <th>名称</th>
+          <th>开始时间</th>
+          <th>结束时间</th>
+          <th>状态</th>
+          <th>备注信息</th>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
+
+
