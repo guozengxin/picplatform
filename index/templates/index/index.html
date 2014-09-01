@@ -15,10 +15,10 @@
 		</legend>
 		<ul class="link">
 			<li><a href="http://10.11.215.156/picfast/index.html" target="_blank">图片快速更新</a></li>
-			<li><a href="http://10.11.215.156/calculatemf/index.php" target="_blank">mf值计算工具</a></li>
+			<li><a href="http://10.11.215.156/calculatemf/index.php" target="_blank">mf值计算</a></li>
 			<li><a href="{% url 'tool:urlbase64' %}" target="_blank">redirect链接转换</a></li>
 			<li><a href="http://10.12.8.170/getpage2.html" target="_blank">快速PA</a></li>
-			<li><a href="{% url 'tool:vr-forcequery' %}" target="_blank">图片vr forceQuery工具</a></li>
+			<li><a href="{% url 'tool:vr-forcequery' %}" target="_blank">图片vr forceQuery</a></li>
 			<li><a href="http://10.134.71.142:8080/pic/send2pup.php" target="_blank">Send2PUP工具</a></li>
 		</ul>
 	</div>
@@ -28,8 +28,11 @@
 		</legend>
 		<ul class="link">
 			<li><a href="http://10.136.127.182/index.php/ShowPicurlInfo256/showSearchPicurlInfo" target="_blank">picURLlib查询</a></li>
-			<li><a href="http://op.sogou-inc.com/magic/" target="_blank">magic查询</a></li>
+			<li><a class="disabled" href="http://op.sogou-inc.com/magic/" target="_blank">magic查询(暂不可用)</a></li>
             <li><a href="{% url 'search:docid2url' %}" target="_blank">url和docid批量转换</a></li>
+            <li><a href="http://10.134.71.142:8080/pic/readdocinfo.php" target="_blank">线上docinfo查询</a></li>
+			<li><a href="http://10.11.206.177/magic/" target="_blank" disabled>magic查询(临时搭建)</a></li>
+			<li><a href="http://10.134.60.171/" target="_blank" disabled>magic查询(By江波, 新增支持docid显示，支持自定义数据库)</a></li>
 		</ul>
 	</div>
 	<div class="col-md-3 link-block">
@@ -39,7 +42,7 @@
 		<ul class="link">
 			<li><a href="{% url 'search:blacklist' %}" target="_blank">黑名单查询</a></li>
 			<li><a href="http://umis.op.sogou-inc.com/index.jsp" target="_blank">umis系统</a></li>
-			<li><a href="{% url 'search:umis-force' %}" target="_blank">umis生效工具</a></li>
+			<li><a href="{% url 'search:umis-force' %}" target="_blank">umis强制生效</a></li>
 		</ul>
 	</div>
 	<div class="col-md-3 link-block">

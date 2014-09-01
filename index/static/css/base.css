@@ -1,3 +1,10 @@
 .container {
-	max-width: 1170px;
+  max-width: 1170px;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: gray;
+}
+
