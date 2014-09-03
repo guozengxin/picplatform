@@ -49,8 +49,8 @@ $(function() {
 		} else {
 
 		}
-		var findstr = 'http://redirect.sogou.com';
-		if (urlstr.indexOf(findstr) >= 0) {
+		var findReg = /http:\/\/redirect\d*\.sogou\.com/;
+		if (findReg.test(urlstr)) {
 			findstr = 'url=';
 			var pos1 = urlstr.indexOf(findstr);
 			var pos2 = urlstr.indexOf('&md5');
