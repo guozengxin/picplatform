@@ -9,4 +9,5 @@ urlpatterns = patterns(
     url(r'^base64-decode$', views.base64_decode, name='base64-decode'),
     url(r'^vr-forcequery$', views.vr_forcequery, name='vr-forcequery'),
     url(r'^run-force$', views.run_force, name='run-force'),
+    url(r'^groupnews$', views.groupnews, name='groupnews'),
 )

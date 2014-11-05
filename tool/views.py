@@ -76,3 +76,7 @@ def run_force(request):
         ret['error'] = str(e)
         ret['status'] = False
     return HttpResponse(json.dumps(ret))
+
+
+def groupnews(request):
+    return render_to_response('tool/groupnews.html', context_instance=RequestContext(request))
