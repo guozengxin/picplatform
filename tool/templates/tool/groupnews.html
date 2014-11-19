@@ -1,0 +1,41 @@
+{% extends "index/base.html" %}
+{% load url from future %}
+
+{% block title %} 新闻组图数据 {% endblock %}
+
+{% block style %}
+  <link type="text/css" href="{{ STATIC_URL }}css/groupnews.css" rel="stylesheet">
+{% endblock %}
+
+{% block script %}
+  <script src="{{ STATIC_URL }}js/groupnews.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+  {% include "index/navbar.html" %}
+  <legend>
+    新闻组图数据
+  </legend>
+  <div class="col-md-12">
+    <div class="input-group">
+      <div class="input-group-addon">URL</div>
+      <input type="text" class="form-control" id="pageurl" placeholder="请输入组图页面的URL"></textarea>
+    </div>
+    <button class="btn btn-default" type="button" id="search">查询</button>
+    <button class="btn btn-default" type="button" id="submit">抓取</button>
+    <div class="alert" id="message" role="alert"></div>
+    <div id="search-result">
+      <table class="table table-bordered table-condensed table-hover">
+        <thead>
+          <th></th>
+          <th>URL</th>
+          <th>标题</th>
+          <th>分类</th>
+          <th>是否删除</th>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

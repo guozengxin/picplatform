@@ -1,0 +1,24 @@
+select {
+  font-size: 1em !important;
+  width: auto !important;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.dl-horizontal dt {
+  width: 80px;
+}
+
+.dl-horizontal dd {
+  margin-left: 100px;
+}
+
+#message {
+  margin-top: 15px;
+}
+
+#search-result {
+  display: none;
+}

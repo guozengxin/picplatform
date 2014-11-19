@@ -10,4 +10,6 @@ urlpatterns = patterns(
     url(r'^vr-forcequery$', views.vr_forcequery, name='vr-forcequery'),
     url(r'^run-force$', views.run_force, name='run-force'),
     url(r'^groupnews$', views.groupnews, name='groupnews'),
+    url(r'^groupnews-crawl$', views.groupnews_crawl, name='groupnews-crawl'),
+    url(r'^groupnews-search$', views.groupnews_search, name='groupnews-search'),
 )
