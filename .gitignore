@@ -6,3 +6,9 @@ search/script/data/
 search/thrift_server/blserver
 search/thrift_server/data/
 search/thrift_server/log/
+log/
+tool/script/data/
+tool/script/log/
+tool/script/opt/
+tool/script/reader.tar.gz
+tool/script/sohu_spider.tar.gz

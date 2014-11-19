@@ -10,6 +10,7 @@ import time
 
 from service import encoding
 from service import utility
+from service import groupnews as gn
 
 # Create your views here.
 
@@ -75,4 +76,28 @@ def run_force(request):
     except Exception, e:
         ret['error'] = str(e)
         ret['status'] = False
+    return HttpResponse(json.dumps(ret))
+
+
+def groupnews(request):
+    return render_to_response('tool/groupnews.html', context_instance=RequestContext(request))
+
+
+def groupnews_crawl(request):
+    pageurl = request.POST.get('pageurl', None)
+    ret = {'status': True, 'message': ''}
+    import commands
+    retcode, msg = commands.getstatusoutput('cd /search/guozengxin/task/picplatform/tool/script/ && sh crawl.sh ' + pageurl)
+    ret['status'] = retcode == 0
+    ret['message'] = msg
+    return HttpResponse(json.dumps(ret))
+
+
+def groupnews_search(request):
+    query = request.POST.get('query', None)
+    ret = {'status': True, 'message': '', 'result': []}
+    rDict = gn.groupnewsSearch(query)
+    for r in rDict:
+        ret['result'].append(rDict[r])
+    print ret
     return HttpResponse(json.dumps(ret))
