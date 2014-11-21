@@ -7,6 +7,8 @@ dbinfo = {'host': 'mysql01.sae.djt',
           'passwd': 'm6i1m2a3',
           'db': 'pic_tiny'}
 
+table = 'pic_news_image'
+
 
 def isurl(query):
     if query.startswith('http://') or query.startswith('https://'):
@@ -52,6 +54,7 @@ def groupnewsSearch(query):
     db = MySQLdb.connect(**dbinfo)
     result = {}
     if isurl(query):
+        print 'search'
         result.update(searchUrl(query, db))
     else:
         result.update(searchKeyword(query, db))
@@ -67,7 +70,7 @@ def searchUrl(url, db):
 
     # 把URL当做picurl查询数据
     cur = db.cursor()
-    sqlstring = 'select distinct page_url from pic_news_image where ori_pic_src = %s'
+    sqlstring = 'select distinct page_url from ' + table + ' where ori_pic_src = %s'
     cur.execute(sqlstring, [url])
     rows = cur.fetchall()
     for r in rows:
@@ -84,7 +87,7 @@ def searchKeyword(query, db):
     cur = db.cursor()
     cur.execute('set names gbk')
     result = {}
-    sqlstring = 'select distinct page_url from pic_news_image where page_title like %s'
+    sqlstring = 'select distinct page_url from ' + table + ' where page_title like %s'
     print query.encode('gbk')
     cur.execute(sqlstring, [('%' + query + '%').encode('gbk')])
     rows = cur.fetchall()
@@ -105,7 +108,7 @@ def gbk2utf8(s):
 def searchPageurl(pageurl, db):
     cur = db.cursor()
     cur.execute('set names gbk')
-    sqlstring = 'select page_url, page_title, ori_pic_src, deleted, category, pic_title, img_desc, group_mark from pic_news_image where page_url = %s order by group_index'
+    sqlstring = 'select page_url, page_title, ori_pic_src, deleted, category, pic_title, img_desc, group_mark from ' + table + ' where page_url = %s order by group_index'
     cur.execute(sqlstring, [pageurl])
     rows = cur.fetchall()
     info = {}
@@ -123,10 +126,28 @@ def searchPageurl(pageurl, db):
         info['pics'].append(picinfo)
     if len(info['pics']) > 0:
         iObj = info['pics'][0]
-        print iObj
         info['title'] = iObj['title']
         info['picurl'] = iObj['picurl']
         info['deleted'] = iObj['deleted']
         info['category'] = iObj['category']
     cur.close()
     return info
+
+
+def operatePageurl(pageurl, op):
+    db = MySQLdb.connect(**dbinfo)
+    cur = db.cursor()
+    cur.execute('set names gbk;')
+    deleted = 0
+    if op == 'delete':
+        deleted = 1
+    elif op == 'recover':
+        deleted = 0
+    else:
+        return False
+    sqlstring = 'update ' + table + ' set deleted = %s where page_url = %s;'
+    ret = cur.execute(sqlstring, [str(deleted), pageurl])
+    if ret > 0:
+        return True
+    else:
+        return False

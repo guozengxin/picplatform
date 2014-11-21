@@ -60,8 +60,28 @@ $(function() {
 			});
 		}
 		if (btype == 'all' || btype == 'delete') {
+			$('.delete').click(function () {
+				var pageurl = $(this).closest('tr').children('td').eq(1).children('a').text();
+				$.post('/tool/groupnews-op', {
+					'pageurl': pageurl,
+					'op': 'delete'
+				}, function (ret) {
+					reset();
+					runsearch();
+				}, 'json');
+			});
 		}
 		if (btype == 'all' || btype == 'recover') {
+			$('.recover').click(function () {
+				var pageurl = $(this).closest('tr').children('td').eq(1).children('a').text();
+				$.post('/tool/groupnews-op', {
+					'pageurl': pageurl,
+					'op': 'recover',
+				}, function (ret) {
+					reset();
+					runsearch();
+				}, 'json');
+			});
 		}
 	}
 
@@ -83,7 +103,11 @@ $(function() {
 			html += '<td><a href="' + result[i].pageurl + '">' + result[i].pageurl + '</a></td>';
 			html += '<td>' + result[i].title + '</td>';
 			html += '<td>' + result[i].category + '</td>';
-			html += '<td>' + result[i].deleted;
+			var t = '已删除';
+			if (result[i].deleted == 0) {
+				t = '未删除';
+			}
+			html += '<td>' + t;
 			if (result[i].deleted == 1) {
 				html += btnRecover + '</td>';
 			} else {
@@ -109,7 +133,11 @@ $(function() {
 			html += '<dt>img_desc</dt><dd>' + o.img_desc + '</dd>';
 			html += '<dt>group_mark</dt><dd>' + o.group_mark + '</dd>';
 			html += '<dt>category</dt><dd>' + o.category + '</dd>';
-			html += '<dt>deleted</dt><dd>' + o.deleted + '</dd>';
+			var t = '已删除';
+			if (o.deleted == 0) {
+				t = '未删除';
+			}
+			html += '<dt>deleted</dt><dd>' + t + '</dd>';
 			html += '</dl>';
 			html += '</div>';
 			html += '</div>';

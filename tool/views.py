@@ -101,3 +101,16 @@ def groupnews_search(request):
         ret['result'].append(rDict[r])
     print ret
     return HttpResponse(json.dumps(ret))
+
+
+def groupnews_op(request):
+    pageurl = request.POST.get('pageurl', None)
+    op = request.POST.get('op', None)
+    ret = {'status': True, 'message': ''}
+    ret['status'] = gn.operatePageurl(pageurl, op)
+    if ret['status']:
+        flag = '成功'
+    else:
+        flag = '失败'
+    ret['message'] = ''.join([op, pageurl, flag.decode('utf8')])
+    return HttpResponse(json.dumps(ret))
