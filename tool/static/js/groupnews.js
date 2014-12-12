@@ -101,6 +101,7 @@ $(function() {
 			var html = '<tr>';
 			html += '<td>' + btnExpand + '</td>';
 			html += '<td><a href="' + result[i].pageurl + '">' + result[i].pageurl + '</a></td>';
+			html += '<td>' + result[i].group_mark + '</td>';
 			html += '<td>' + result[i].title + '</td>';
 			html += '<td>' + result[i].category + '</td>';
 			var t = '已删除';
@@ -129,9 +130,10 @@ $(function() {
 			html += '<a class="thumbnail" href="' + o.picurl + '" target="_blank">' + '<img class="img-responsive" src="' + o.picurl + '"></a>';
 			html += '<div class="caption">';
 			html += '<dl class="dl-horizontal">';
+			html += '<dt>img_hash</dt><dd>' + o.img_hash + '</dd>';
+			html += '<dt>group_mark</dt><dd>' + o.group_mark + '</dd>';
 			html += '<dt>pic_title</dt><dd>' + o.pic_title + '</dd>';
 			html += '<dt>img_desc</dt><dd>' + o.img_desc + '</dd>';
-			html += '<dt>group_mark</dt><dd>' + o.group_mark + '</dd>';
 			html += '<dt>category</dt><dd>' + o.category + '</dd>';
 			var t = '已删除';
 			if (o.deleted == 0) {

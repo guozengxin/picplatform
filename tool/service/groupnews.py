@@ -2,6 +2,8 @@
 # encoding=utf-8
 
 import MySQLdb
+import re
+import sys
 dbinfo = {'host': 'mysql01.sae.djt',
           'user': 'chanpinyunying',
           'passwd': 'm6i1m2a3',
@@ -11,7 +13,15 @@ table = 'pic_news_image'
 
 
 def isurl(query):
+    print >> sys.stderr, query.encode('gbk')
     if query.startswith('http://') or query.startswith('https://'):
+        return True
+    else:
+        return False
+
+
+def isUint64(query):
+    if re.match(r'[0-9a-fA-F]', query) and len(query) == 16:
         return True
     else:
         return False
@@ -54,10 +64,12 @@ def groupnewsSearch(query):
     db = MySQLdb.connect(**dbinfo)
     result = {}
     if isurl(query):
-        print 'search'
         result.update(searchUrl(query, db))
+    elif isUint64(query):
+        result.update(searchMulti(query, db, 'group_mark'))
+        result.update(searchMulti(query, db, 'img_hash'))
     else:
-        result.update(searchKeyword(query, db))
+        result.update(searchMulti(query, db, 'page_title'))
     return result
 
 
@@ -83,13 +95,20 @@ def searchUrl(url, db):
     return result
 
 
-def searchKeyword(query, db):
+def searchMulti(query, db, flag):
     cur = db.cursor()
     cur.execute('set names gbk')
     result = {}
-    sqlstring = 'select distinct page_url from ' + table + ' where page_title like %s'
-    print query.encode('gbk')
-    cur.execute(sqlstring, [('%' + query + '%').encode('gbk')])
+    if flag == 'page_title':
+        sqlstring = 'select distinct page_url from ' + table + ' where page_title like \'%s\'' % (('%' + query + '%').encode('gbk'))
+    elif flag == 'group_mark':
+        sqlstring = 'select distinct page_url from ' + table + ' where group_mark = \'%s\'' % (query)
+    elif flag == 'img_hash':
+        sqlstring = 'select distinct page_url from ' + table + ' where img_hash = \'%s\'' % (query)
+    else:
+        return result
+
+    cur.execute(sqlstring)
     rows = cur.fetchall()
     for r in rows:
         pageurl = r[0]
@@ -102,13 +121,13 @@ def searchKeyword(query, db):
 
 
 def gbk2utf8(s):
-    return s.decode('gbk').encode('utf8')
+    return s.decode('gb18030').encode('utf8')
 
 
 def searchPageurl(pageurl, db):
     cur = db.cursor()
     cur.execute('set names gbk')
-    sqlstring = 'select page_url, page_title, ori_pic_src, deleted, category, pic_title, img_desc, group_mark from ' + table + ' where page_url = %s order by group_index'
+    sqlstring = 'select page_url, page_title, ori_pic_src, deleted, category, pic_title, img_desc, group_mark, img_hash from ' + table + ' where page_url = %s order by group_index'
     cur.execute(sqlstring, [pageurl])
     rows = cur.fetchall()
     info = {}
@@ -121,8 +140,10 @@ def searchPageurl(pageurl, db):
         picinfo['deleted'] = r[3]
         picinfo['category'] = gbk2utf8(r[4])
         picinfo['pic_title'] = substrUTF8(gbk2utf8(r[5]), 10)
+        print >> sys.stderr, r[6]
         picinfo['img_desc'] = substrUTF8(gbk2utf8(r[6]), 30)
         picinfo['group_mark'] = r[7]
+        picinfo['img_hash'] = r[8]
         info['pics'].append(picinfo)
     if len(info['pics']) > 0:
         iObj = info['pics'][0]
@@ -130,6 +151,7 @@ def searchPageurl(pageurl, db):
         info['picurl'] = iObj['picurl']
         info['deleted'] = iObj['deleted']
         info['category'] = iObj['category']
+        info['group_mark'] = iObj['group_mark']
     cur.close()
     return info
 
