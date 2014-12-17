@@ -11,6 +11,10 @@ def getHostList():
         host = 'qs%03d.pic.sjs' % (h)
         for port in (5510, 5520, 6510):
             hostlist.append((host, port))
+    for h in range(1, 97):
+        host = 'qs%03d.cbir.sjs' % (h)
+        for port in (5511, 5512, 5513, 5514):
+            hostlist.append((host, port))
     return hostlist
 
 
