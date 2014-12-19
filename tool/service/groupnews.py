@@ -3,7 +3,6 @@
 
 import MySQLdb
 import re
-import sys
 dbinfo = {'host': 'mysql01.sae.djt',
           'user': 'chanpinyunying',
           'passwd': 'm6i1m2a3',
@@ -13,7 +12,6 @@ table = 'pic_news_image'
 
 
 def isurl(query):
-    print >> sys.stderr, query.encode('gbk')
     if query.startswith('http://') or query.startswith('https://'):
         return True
     else:
@@ -140,7 +138,6 @@ def searchPageurl(pageurl, db):
         picinfo['deleted'] = r[3]
         picinfo['category'] = gbk2utf8(r[4])
         picinfo['pic_title'] = substrUTF8(gbk2utf8(r[5]), 10)
-        print >> sys.stderr, r[6]
         picinfo['img_desc'] = substrUTF8(gbk2utf8(r[6]), 30)
         picinfo['group_mark'] = r[7]
         picinfo['img_hash'] = r[8]

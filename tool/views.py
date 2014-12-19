@@ -68,11 +68,9 @@ def run_force(request):
     ret = {'status': True, 'weburl': weburl, 'error': ''}
     try:
         utility.refreshUrl(vrurl)
-        print 'refresh %s' % (vrurl)
         time.sleep(1)
         for url in refreshList:
             utility.refreshUrl(url)
-            print 'refresh %s' % (url)
     except Exception, e:
         ret['error'] = str(e)
         ret['status'] = False
