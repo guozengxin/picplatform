@@ -38,20 +38,43 @@ sortList = (
 )
 
 
+def uniqueResult(result):
+    uniqueKey = {}
+    ret = []
+    for r in result:
+        key = (r['site'], r['date'])
+        if key in uniqueKey:
+            continue
+        else:
+            ret.append(r)
+            uniqueKey[key] = 1
+    return ret
+
+
 @cache_page(60 * 15)
 def sitedl(request):
     # get parameters
-    pDate = request.GET.get('date')
+    startDate = request.GET.get('startdate')
+    endDate = request.GET.get('enddate')
     pSite = request.GET.get('site')
     pSort = request.GET.get('sort')
     pLimit = request.GET.get('limit')
 
     # date string
-    if pDate is None or len(pDate.strip()) == 0:
+    if startDate is None or len(startDate.strip()) == 0:
         dateObj = datetime.today() - timedelta(1)
     else:
-        dateObj = datetime.strptime(pDate.strip(), '%Y-%m-%d')
-    datestr = dateObj.strftime('%Y%m%d')
+        dateObj = datetime.strptime(startDate.strip(), '%Y-%m-%d')
+    startDateStr = dateObj.strftime('%Y%m%d')
+    showStartDateStr = dateObj.strftime('%Y-%m-%d')
+
+    # date string
+    if startDate is None or len(endDate.strip()) == 0:
+        dateObj = datetime.today() - timedelta(1)
+    else:
+        dateObj = datetime.strptime(endDate.strip(), '%Y-%m-%d')
+    endDateStr = dateObj.strftime('%Y%m%d')
+    showEndDateStr = dateObj.strftime('%Y-%m-%d')
 
     # limit
     if pLimit is None or len(pLimit.strip()) == 0:
@@ -65,10 +88,11 @@ def sitedl(request):
 
     # site
     if pSite is None or len(pSite) == 0:
-        result = ss.searchTop(datestr, pSort, limit)
+        result = ss.searchTop(startDateStr, endDateStr, pSort, limit)
+        pSite = ''
     else:
-        result = ss.searchSite(pSite, datestr, limit)
-    showdatestr = dateObj.strftime('%Y-%m-%d')
-    print pSort
-    response = {'result': result, 'date': showdatestr, 'site': pSite, 'limit': limit, 'sort': pSort, 'sortlist': sortList}
+        result = ss.searchSite(pSite, startDateStr, endDateStr, limit)
+        result += ss.searchDomain(pSite, startDateStr, endDateStr, limit)
+        result = uniqueResult(result)
+    response = {'result': result, 'startdate': showStartDateStr, 'enddate': showEndDateStr, 'site': pSite, 'limit': limit, 'sort': pSort, 'sortlist': sortList}
     return render_to_response('show/sitedl.html', response, context_instance=RequestContext(request))

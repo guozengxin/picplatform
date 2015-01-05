@@ -34,13 +34,13 @@ def formatResult(rows):
     return result
 
 
-def searchTop(datestr, sortkey, limit=100):
+def searchTop(startDate, endDate, sortkey, limit=100):
     db, cursor = newConnection()
     if sortkey != 'total':
         sortkey = sortkey + ' desc, total desc'
     else:
         sortkey = sortkey + ' desc'
-    sqlstring = 'select ' + ','.join(fetchItem) + ' from ' + table + ' where date = \'%s\' order by %s limit %d;' % (datestr, sortkey, limit)
+    sqlstring = 'select ' + ','.join(fetchItem) + ' from ' + table + ' where date >= \'%s\' and date <= \'%s\' order by %s limit %d;' % (startDate, endDate, sortkey, limit)
     print sqlstring
     cursor.execute(sqlstring)
     rows = cursor.fetchall()
@@ -49,10 +49,20 @@ def searchTop(datestr, sortkey, limit=100):
     return result
 
 
-def searchSite(site, datestr, limit=100):
+def searchSite(site, startDate, endDate, limit=100):
     db, cursor = newConnection()
     site = site.strip()
-    sqlstring = 'select ' + ','.join(fetchItem) + ' from ' + table + ' where site = \'%s\' order by date desc limit %d;' % (site, limit)
+    sqlstring = 'select ' + ','.join(fetchItem) + ' from ' + table + ' where site = \'%s\' and date >= \'%s\' and date <= \'%s\' order by date desc limit %d;' % (site, startDate, endDate, limit)
+    print sqlstring
+    cursor.execute(sqlstring)
+    rows = cursor.fetchall()
+    return formatResult(rows)
+
+
+def searchDomain(domain, startDate, endDate, limit=100):
+    db, cursor = newConnection()
+    domain = domain.strip()
+    sqlstring = 'select ' + ','.join(fetchItem) + ' from ' + table + ' where domain = \'%s\' and date >= \'%s\' and date <= \'%s\' order by date desc limit %d;' % (domain, startDate, endDate, limit)
     print sqlstring
     cursor.execute(sqlstring)
     rows = cursor.fetchall()

@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block content %}
-	{% include "index/navbar.html" %}
+  {% include "index/navbar.html" %}
+  <div class="row">
 	<div class="col-md-3 link-block">
 		<legend>
 			<small>抓取工具</small>
@@ -17,6 +18,8 @@
 			<li><a href="http://10.11.215.156/picfast/index.html" target="_blank">图片快速更新</a></li>
 			<li><a href="http://10.12.8.170/getpage2.html" target="_blank">页面抓取</a></li>
 			<li><a href="http://10.134.71.142:8080/pic/send2pup.php" target="_blank">Send2PUP工具</a></li>
+            <li> </li>
+            <li> </li>
 		</ul>
 	</div>
 	<div class="col-md-3 link-block">
@@ -25,9 +28,10 @@
 		</legend>
 		<ul class="link">
 			<li><a href="http://10.136.127.182/index.php/ShowPicurlInfo256/showSearchPicurlInfo" target="_blank">picURLlib查询</a></li>
-			<li><a class="disabled" href="http://op.sogou-inc.com/magic/" target="_blank">magic查询(暂不可用)</a></li>
+			<li><a href="http://10.134.71.142:8080/pic/readhbase.php" target="_blank">pic.norm.hbase查询</a></li>
 			<li><a href="http://10.11.206.177/magic/" target="_blank">magic查询(临时搭建)</a></li>
             <li><a href="{% url 'tool:groupnews' %}" target="_blank">新闻组图查询/入库</a></li>
+            <li><a href="{% url 'show:sitedl' %}" target="_blank">图片站点信息查询</a></li>
 		</ul>
 	</div>
 	<div class="col-md-3 link-block">
@@ -38,6 +42,8 @@
 			<li><a href="http://10.12.131.157:8080/SendRequest/pic/index.jsp" target="_blank">cache/vr/qc/hint/hot调试</a></li>
             <li><a href="http://10.134.71.142:8080/pic/readdocinfo.php" target="_blank">线上docinfo查询</a></li>
 			<li><a href="{% url 'tool:vr-forcequery' %}" target="_blank">图片vr forceQuery</a></li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
 		</ul>
 	</div>
 	<div class="col-md-3 link-block">
@@ -48,7 +54,8 @@
 			<li><a href="http://10.11.215.156/calculatemf/index.php" target="_blank">mf值计算</a></li>
 			<li><a href="{% url 'tool:urlbase64' %}" target="_blank">redirect链接转换</a></li>
             <li><a href="{% url 'search:docid2url' %}" target="_blank">url和docid批量转换</a></li>
-            <li><a href="http://www.facaicai.com/" target="_blank">各搜索引擎结果对比</li>
+            <li><a href="http://www.facaicai.com/" target="_blank">各搜索引擎结果对比</a></li>
+            <li>&nbsp;</li>
 		</ul>
 	</div>
 	<div class="col-md-3 link-block">
@@ -83,5 +90,5 @@
 			<li><a href="http://xwiki.sogou-inc.com/xwiki/bin/view/VS_Department/%E5%9B%BE%E7%89%87%E7%B4%A2%E5%BC%95%E5%A4%B1%E8%B4%A5%E5%8E%9F%E5%9B%A0%E5%90%84%E5%AD%97%E6%AE%B5%E5%90%AB%E4%B9%89" target="_blank">图片索引失败原因解释</a></li>
 		</ul>
 	</div>
+  </div>
 {% endblock %}
-

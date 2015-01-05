@@ -19,19 +19,25 @@
     图片数据
   </legend>
   <form role='form' method="get" action="">
-    <div class="col-md-4">
-      <div class="input-group">
-        <span class="input-group-addon">site</span>
-        <input class="form-control" type="text" id="search-site" name="site" value="{{ site }}" placeholder="">
-      </div>
-    </div>
     <div class="col-md-3">
       <div class="input-group">
-        <span class="input-group-addon">日期</span>
-        <input class="form-control" type="text" value="{{ date }}" id="search-date" name="date">
+        <span class="input-group-addon">Query</span>
+        <input class="form-control" type="text" id="search-site" name="site" value="{{ site }}" placeholder="请输入site或domain">
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
+      <div class="input-group">
+        <span class="input-group-addon">From</span>
+        <input class="form-control" type="text" value="{{ startdate }}" id="start-date" name="startdate">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="input-group">
+        <span class="input-group-addon">To</span>
+        <input class="form-control" type="text" value="{{ enddate }}" id="end-date" name="enddate">
+      </div>
+    </div>
+    <div class="col-md-2">
       <div class="input-group">
         <span class="input-group-addon">排序</span>
         <select class="form-control" name="sort">
@@ -62,7 +68,7 @@
       <tbody>
         {% for r in result %}
         <tr>
-          <td><a href="{% url 'show:sitedl'%}?site={{ r.site }}&date={{ date }}&sort={{ sort }}">{{ r.site }}</a></td>
+          <td><a href="{% url 'show:sitedl'%}?site={{ r.site }}&startdate={{ startdate }}&enddate={{ enddate }}&sort={{ sort }}">{{ r.site }}</a></td>
           <td>{{ r.date }}</td>
           <td>{{ r.total }}</td>
           <td>{{ r.success }}<em>({{ r.successR }})</em></td>
@@ -76,5 +82,3 @@
     </table>
   </div>
 {% endblock %}
-
-

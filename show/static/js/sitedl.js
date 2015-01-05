@@ -2,12 +2,11 @@ $(function() {
 	init();
 
 	function init() {
-
 		initDate();
 	}
 
-	function initDate() {
-		var dtPicker = $("#search-date").datetimepicker({
+	function setDateTimePicker(obj) {
+		var dtPicker = obj.datetimepicker({
 			format: 'yyyy-mm-dd',
 			todayHighlight: true,
 			minView: 2,
@@ -15,10 +14,13 @@ $(function() {
 			todayBtn: true,
 			autoclose: true
 		}).on('changeDate', function(e){
-			dateStr = $("#search-date").val();
-			$('table tbody').html('');
-			showResult(dateStr);
+			dateStr = obj.val();
 		});
+	}
+
+	function initDate() {
+		setDateTimePicker($("#start-date"));
+		setDateTimePicker($("#end-date"));
 	}
 
 	function showResult(dateStr) {
