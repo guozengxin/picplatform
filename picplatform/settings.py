@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'tool',
     'search',
     'show',
+    'shop',
 )
 
 CACHES = {

@@ -17,6 +17,7 @@ urlpatterns = patterns(
     url(r'^tool/', include('tool.urls', namespace='tool')),
     url(r'^search/', include('search.urls', namespace='search')),
     url(r'^show/', include('show.urls', namespace='show')),
+    url(r'^shop/', include('shop.urls', namespace='shop')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
