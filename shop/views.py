@@ -38,7 +38,7 @@ def run_shopvr_force(request):
             vrurl = vrBase % (ip, query)
             utility.refreshUrl(vrurl)
             ret['info'] += '刷新 <a href="%s">%s</a> 成功<br>' % (vrurl, vrurl)
-        time.sleep(1)
+        time.sleep(2)
         for url in refreshList:
             utility.refreshUrl(url)
             ret['info'] += '刷新 <a href="%s">%s</a> 成功<br>' % (url, url)
