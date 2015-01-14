@@ -6,8 +6,10 @@ from django.http import HttpResponse
 
 import json
 import urllib
+import urllib2
 import time
 import commands
+import md5
 
 from service import utility
 
@@ -46,3 +48,26 @@ def run_shopvr_force(request):
         ret['error'] = str(e)
         ret['status'] = False
     return HttpResponse(json.dumps(ret))
+
+
+def cache(request):
+    return render_to_response('shop/cache.html', context_instance=RequestContext(request))
+
+
+def cachepost(request):
+    param = {}
+    url = ''
+    for key in request.POST:
+        value = request.POST.get(key)
+        if value is None or len(value) == 0:
+            continue
+        if key == 'host':
+            url = 'http://' + value
+        else:
+            param[key] = value.encode('utf-16-le')
+    hashstr = request.POST.get('queryString').encode('utf8')
+    param['hash'] = md5.new(hashstr).hexdigest().decode('utf8').encode('utf-16-le')
+    paramData = urllib.urlencode(param)
+    req = urllib2.urlopen(url, paramData)
+    result = req.read()
+    return HttpResponse(result, content_type="application/xhtml+xml")
