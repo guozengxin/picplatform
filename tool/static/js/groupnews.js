@@ -123,7 +123,7 @@ $(function() {
 	}
 
 	function showThumbPic(pics) {
-		var html = '<tr style="display:none"><td colspan="5"><div class="row">';
+		var html = '<tr style="display:none"><td colspan="6"><div class="row">';
 		for (var i = 0; i < pics.length; ++ i) {
 			var o = pics[i];
 			html += '<div class="col-md-3">';
@@ -131,6 +131,7 @@ $(function() {
 			html += '<div class="caption">';
 			html += '<dl class="dl-horizontal">';
 			html += '<dt>img_hash</dt><dd>' + o.img_hash + '</dd>';
+			html += '<dt>title_id</dt><dd>' + o.title_id + '</dd>';
 			html += '<dt>group_mark</dt><dd>' + o.group_mark + '</dd>';
 			html += '<dt>pic_title</dt><dd>' + o.pic_title + '</dd>';
 			html += '<dt>img_desc</dt><dd>' + o.img_desc + '</dd>';

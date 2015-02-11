@@ -3,39 +3,69 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
     <title>购物cache</title>
+    <!-- <link type="text/css" href="{{ STATIC_URL }}css/shopvr-forcequery.css" rel="stylesheet"> -->
+    <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript"></script>
+	<script src="{{ STATIC_URL }}js/cache.js" type="text/javascript"></script>
   </head>
   <body>
     <form action="cachepost" method="post">
+      <input type="radio" name="sstype" value="query" checked> 自定义
+      <input type="radio" name="sstype" value="queryLine"> 单行请求
+      <input type="radio" name="sstype" value="queryUpdate"> 发更新信号
+      <br/> <br/>
       <table>
-        <tr>
+        <tr class="ql" style="display:none">
+          <td>queryLine:</td>
+          <td><textarea id="queryLine" name="queryLine" style="width: 280px" rows="5"></textarea></td>
+        </tr>
+        <tr class="q">
           <td>queryType:</td>
           <td>
             <select type="text" name="queryType" style="width: 280px">
               <option value="query">query</option>
               <option value="urllookup">urllookup</option>
+              <option value="promotionquery">promotionquery</option>
+              <option value="docid2summary">docid2summary</option>
+              <option value="similarquery">similarquery</option>
+              <option value="recommendquery">recommendquery</option>
+              <option value="stypequery">stypequery</option>
+              <option value="discountquery">discountquery</option>
+              <option value="sitequery1">sitequery1</option>
+              <option value="sitequery2">sitequery2</option>
+              <option value="salesquery">salesquery</option>
             </select>
           </td>
         </tr>
-        <tr><td>queryString:</td><td><input type="text" name="queryString" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>parity:</td><td><input type="text" name="parity" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>dump:</td><td><input type="text" name="dump" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>userIP:</td><td><input type="text" name="userIP" style="width: 280px" maxlength="2048"></td></tr>
-        <tr><td>hash:</td><td><input type="text" name="hash" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>forceQuery:</td><td><input type="text" name="forceQuery" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>queryFrom:</td><td><input type="text" name="queryFrom" style="width: 280px" maxlength="1000"></td><td>usage_type,4,@groupby desc</td></tr>
+        <tr class="q"><td>queryString:</td><td><input type="text" name="queryString" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>title:</td><td><input type="text" name="title" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>simiPrice:</td><td><input type="text" name="simiPrice" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>simiCateid:</td><td><input type="text" name="simiCateid" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>dump:</td><td><input type="text" name="dump" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>userIP:</td><td><input type="text" name="userIP" style="width: 280px" maxlength="2048"></td></tr>
+        <tr class="q"><td>forceQuery:</td><td><input type="text" name="forceQuery" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>queryFrom:</td><td><input type="text" name="queryFrom" style="width: 280px" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>parity:</td><td><input type="text" name="parity" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>mark_lowest_in_cluster:</td><td><input type="text" name="mark_lowest_in_cluster" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>urlType:</td><td><input type="text" name="urlType" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>get_top_product:</td><td><input type="text" name="get_top_product" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>sqoSimilarStructSeries:</td><td><input type="text" name="sqoSimilarStructSeries" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>sqoSimilarStructBrands:</td><td><input type="text" name="sqoSimilarStructBrands" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>shopName:</td><td><input type="text" name="shopName" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>shopUrl:</td><td><input type="text" name="shopUrl" style="width: 280px" maxlength="1000"></td></tr>
 
-        <tr><td>rankType:</td><td><input type="text" name="rankType" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>debug:</td><td><input type="text" name="debug" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>forceQueryWithoutSave:</td><td><input type="text" name="forceQueryWithoutSave" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>logLevel:</td><td><input type="text" name="logLevel" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>start:</td><td><input type="text" name="start" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>docList:</td><td><input type="text" name="docList" style="width: 280px" maxlength="1000"></td></tr>
-        <tr><td>end:</td><td><input type="text" name="end" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>rankType:</td><td><input type="text" name="rankType" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>debug:</td><td><input type="text" name="debug" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>forceQueryWithoutSave:</td><td><input type="text" name="forceQueryWithoutSave" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>logLevel:</td><td><input type="text" name="logLevel" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>start:</td><td><input type="text" name="start" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>docList:</td><td><input type="text" name="docList" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>end:</td><td><input type="text" name="end" style="width: 280px" maxlength="1000"></td></tr>
 
         <tr><td>webcache服务器:</td>
           <td><select type="text" name="host" style="width: 280px">
-              <option value="10.134.35.82:29000">[郭增新-test]10.134.35.82:29000</option>
-              <option value="cache01.shop.djt:28001">cache01.shop.djt:28001</option>
+              <option value="10.134.35.82:29000">[郭增新-cache]10.134.35.82:29000</option>
+              <option value="10.134.35.82:29001">[郭增新-test]10.134.35.82:29001</option>
+              <!-- <option value="cache01.shop.djt:28001">cache01.shop.djt:28001</option>
               <option value="cache02.shop.djt:28001">cache02.shop.djt:28001</option>
               <option value="cache03.shop.djt:28001">cache03.shop.djt:28001</option>
               <option value="cache04.shop.djt:28001">cache04.shop.djt:28001</option>
@@ -74,11 +104,12 @@
               <option value="cache17.shop.sjs:28001">cache17.shop.sjs:28001</option>
               <option value="cache18.shop.sjs:28001">cache18.shop.sjs:28001</option>
               <option value="cache19.shop.sjs:28001">cache19.shop.sjs:28001</option>
-              <option value="cache20.shop.sjs:28001">cache20.shop.sjs:28001</option>
+              <option value="cache20.shop.sjs:28001">cache20.shop.sjs:28001</option> -->
             </select>
           </td><td><input type="submit" value="发送" style="width: 100px"></td>
         </tr>
       </table>
     </form>
+    <p>添加cache地址: 10.11.215.156:/search/guozengxin/task/picplatform/shop/templates/shop/cache.html</p>
   </body>
 </html>

@@ -114,8 +114,12 @@ def umis_force(request):
 
 
 def send2query(request):
+    isforbid = request.POST.get('isforbid')
     typeInput = request.POST.get('typeInput')
     dataInput = request.POST.get('dataInput')
-    ret, info = bl_querysend.send2query(typeInput, dataInput)
+    if isforbid == 'true':
+        ret, info = bl_querysend.forbidData(typeInput, dataInput)
+    else:
+        ret, info = bl_querysend.unforbidData(typeInput, dataInput)
     responseData = {'status': ret, 'info': info}
     return HttpResponse(json.dumps(responseData))

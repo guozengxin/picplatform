@@ -18,8 +18,17 @@ def getHostList():
     return hostlist
 
 
-def send2query(typeInput, dataInput):
+def forbidData(typeInput, dataInput):
     cmd = 'cmd:addblacklist\nparam:%s\nvalue:%s\n\n\n' % (typeInput, dataInput)
+    return send2query(cmd)
+
+
+def unforbidData(typeInput, dataInput):
+    cmd = 'cmd:removeblacklist\nparam:%s\nvalue:%s\n\n\n' % (typeInput, dataInput)
+    return send2query(cmd)
+
+
+def send2query(cmd):
     print cmd
     successNum = 0
     for host in getHostList():
@@ -43,6 +52,7 @@ def send2query(typeInput, dataInput):
         ret = [True, '封禁成功']
     sys.stdout.flush()
     return ret
+
 
 if __name__ == '__main__':
     t = 'url'

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+    <title>WebCache输出</title>
+</head>
+<body>
+<form action="webcachepost.php" method="post">
+<table>
+
+<tr><td>cmd:</td><td>
+<select type="text" name="cmd" style="width: 280px">
+<option value="query">query</option>
+<option value="docidlookup">urllookup</option>
+<td></tr>
+
+<tr><td>matchmode:</td><td>
+<select type="text" name="matchmode" style="width: 280px">
+<option value="0">SPH_MATCH_ALL</option>
+<option value="1">SPH_MATCH_ANY</option>
+<option value="2">SPH_MATCH_PHRASE</option>
+<option value="3">SPH_MATCH_BOOLEAN</option>
+<option value="4">SPH_MATCH_EXTENDED</option>
+<option value="5">SPH_MATCH_FULLSCAN</option>
+<option value="6">SPH_MATCH_EXTENDED2</option>
+<td></tr>
+
+<tr><td>queryString:</td><td><input type="text" name="queryString" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>indexlist:</td><td><input type="text" name="indexlist" style="width: 280px" maxlength="2048"></td></tr>
+<tr><td>loan_deadline:</td><td><input type="text" name="loan_deadline" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>loan_amount:</td><td><input type="text" name="loan_amount" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>groupby:</td><td><input type="text" name="groupby" style="width: 280px" maxlength="1000"></td><td>usage_type,4,@groupby desc</td></tr>
+
+<tr><td>filterValue:</td><td><input type="text" name="filterValue" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>filterIntRange:</td><td><input type="text" name="filterIntRange" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>filterFloatRange:</td><td><input type="text" name="filterFloatRange" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>fieldWeights:</td><td><input type="text" name="fieldWeights" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>indexWeights:</td><td><input type="text" name="indexWeights" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>limits:</td><td><input type="text" name="limits" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>sortmode:</td><td><input type="text" name="sortmode" style="width: 280px" maxlength="1000"></td></tr>
+<tr><td>select_expr_info:</td><td><input type="text" name="select_expr_info" style="width: 280px" maxlength="1000"></td></tr>
+
+<tr><td>category:</td><td>
+<select type="text" name="category" style="width: 280px">
+<option value="1">贷款</option>
+<option value="2">招商</option>
+<option value="3">保险</option>
+<option value="4">理财</option>
+<option value="5">信用卡</option>
+<option value="6">onlinegame</option>
+<option value="7">pcgame</option>
+<option value="8">smallgame</option>
+<option value="9">webgame</option>
+<option value="10">allgames</option>
+<option value="11">common</option>
+<td></tr>
+
+<tr><td>summarytype:</td><td>
+<select type="text" name="summarytype" style="width: 280px">
+<option value="0">默认字段集合</option>
+<option value="1">heroselect相关字段</option>
+<option value="2">游戏直播数据字段</option>
+<option value="3">游戏notice</option>
+<td></tr>
+
+<tr><td>forceQuery:</td><td><input type="text" name="forceQuery" style="width: 280px" maxlength="40" value="0"></td><td>是否强制查询</td></tr>
+<tr><td>start:</td><td><input type="text" name="start" style="width: 280px" maxlength="100" value="0" ></td></tr>
+<tr><td>end:</td><td><input type="text" name="end" style="width: 280px" maxlength="100" value="10" ></td></tr>
+<tr><td>ExpireTime:</td><td><input type="text" name="ExpireTime" style="width: 280px" maxlength="50" value="600" ></td></tr>
+
+<tr><td>webcache服务器:</td><td>
+<select type="text" name="host" style="width: 280px">
+<option value="10.12.11.184:12581">[马彦军-rhel6]10.12.11.184:12581</option>
+<option value="10.134.58.89:12581">[qa-rhel6]10.134.58.89:12581</option>
+<option value="10.12.11.184:12580">[马彦军-rhel6]10.12.11.184:12580</option>
+<option value="resincache01.jinrong.sjs:12580">[金融线上cache01]resincache01.jinrong.sjs:12580</option>
+<option value="resincache02.jinrong.sjs:12580">[金融线上cache02]resincache02.jinrong.sjs:12580</option>
+<option value="resincache01.zhaoshang.sjs:12580">[招商线上cache01]resincache01.zhaoshang.sjs:12580</option>
+<option value="resincache02.zhaoshang.sjs:12580">[招商线上cache02]resincache02.zhaoshang.sjs:12580</option>
+<option value="resincache01.zhaoshang.sjs:22580">[游戏线上cache01]resincache01.zhaoshang.sjs:22580</option>
+<option value="resincache02.zhaoshang.sjs:22580">[游戏线上cache02]resincache02.zhaoshang.sjs:22580</option>
+
+</td><td><input type="submit" value="发送" style="width: 100px"></td></tr>
+</table>
+</form>
+</body>
+</html>

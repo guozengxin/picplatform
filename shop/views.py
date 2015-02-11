@@ -6,12 +6,12 @@ from django.http import HttpResponse
 
 import json
 import urllib
-import urllib2
 import time
 import commands
 import md5
 
 from service import utility
+from service import cacheRequest
 
 
 # Create your views here.
@@ -34,14 +34,16 @@ def run_shopvr_force(request):
 
     ret = {'status': True, 'weburl': weburl, 'error': '', 'info': ''}
     try:
-        for address in ('nginx01.shop.sjs', 'nginx01.shop.djt'):
+        for address in ('nginx01.shop.sjs', 'nginx01.shop.yf'):
             ip = commands.getoutput('host ' + address).strip().split(' ')[-1]
             print ip
             vrurl = vrBase % (ip, query)
+            print vrurl
             utility.refreshUrl(vrurl)
             ret['info'] += '刷新 <a href="%s">%s</a> 成功<br>' % (vrurl, vrurl)
         time.sleep(2)
         for url in refreshList:
+            print url
             utility.refreshUrl(url)
             ret['info'] += '刷新 <a href="%s">%s</a> 成功<br>' % (url, url)
     except Exception, e:
@@ -55,19 +57,33 @@ def cache(request):
 
 
 def cachepost(request):
-    param = {}
-    url = ''
-    for key in request.POST:
-        value = request.POST.get(key)
-        if value is None or len(value) == 0:
-            continue
-        if key == 'host':
-            url = 'http://' + value
-        else:
+    sstype = request.POST.get("sstype")
+    host = request.POST.get("host")
+    print sstype
+    if sstype == "queryLine":
+        queryLine = request.POST.get("queryLine")
+        result = cacheRequest.sendQueryLine(host, queryLine)
+        return HttpResponse(result, content_type="application/xml")
+    elif sstype == "queryUpdate":
+        param = {}
+        enc = "utf-16-le"
+        param["hash"] = u'12345'.encode(enc)
+        param["queryType"] = u'querydataupdate'.encode(enc)
+        param["update"] = u'5'.encode(enc)
+        paramData = urllib.urlencode(param)
+        result = cacheRequest.sendRequest(host, paramData)
+        return HttpResponse(result, content_type="application/xml")
+    else:
+        param = {}
+        for key in request.POST:
+            value = request.POST.get(key)
+            if value is None or len(value) == 0:
+                continue
+            if key == "sstype" or key == "host":
+                continue
             param[key] = value.encode('utf-16-le')
-    hashstr = request.POST.get('queryString').encode('utf8')
-    param['hash'] = md5.new(hashstr).hexdigest().decode('utf8').encode('utf-16-le')
-    paramData = urllib.urlencode(param)
-    req = urllib2.urlopen(url, paramData)
-    result = req.read()
-    return HttpResponse(result, content_type="application/xhtml+xml")
+        hashstr = request.POST.get('queryString').encode('utf8')
+        param['hash'] = md5.new(hashstr).hexdigest().decode('utf8').encode('utf-16-le')
+        paramData = urllib.urlencode(param)
+        result = cacheRequest.sendRequest(host, paramData)
+        return HttpResponse(result, content_type="application/xml")

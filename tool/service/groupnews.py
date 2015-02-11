@@ -3,7 +3,7 @@
 
 import MySQLdb
 import re
-dbinfo = {'host': 'mysql01.sae.djt',
+dbinfo = {'host': 'pic01.ss.mysql.db.sogou-op.org',
           'user': 'chanpinyunying',
           'passwd': 'm6i1m2a3',
           'db': 'pic_tiny'}
@@ -125,7 +125,7 @@ def gbk2utf8(s):
 def searchPageurl(pageurl, db):
     cur = db.cursor()
     cur.execute('set names gbk')
-    sqlstring = 'select page_url, page_title, ori_pic_src, deleted, category, pic_title, img_desc, group_mark, img_hash from ' + table + ' where page_url = %s order by group_index'
+    sqlstring = 'select page_url, page_title, ori_pic_src, deleted, category, pic_title, img_desc, group_mark, img_hash, title_id from ' + table + ' where page_url = %s order by group_index'
     cur.execute(sqlstring, [pageurl])
     rows = cur.fetchall()
     info = {}
@@ -141,6 +141,7 @@ def searchPageurl(pageurl, db):
         picinfo['img_desc'] = substrUTF8(gbk2utf8(r[6]), 30)
         picinfo['group_mark'] = r[7]
         picinfo['img_hash'] = r[8]
+        picinfo['title_id'] = gbk2utf8(r[9])
         info['pics'].append(picinfo)
     if len(info['pics']) > 0:
         iObj = info['pics'][0]

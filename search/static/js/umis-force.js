@@ -28,8 +28,11 @@ $(function() {
 	function send2query() {
 		var typeInput = $('#type-input').val();
 		var dataInput = $('#data-input').val();
+		var isforbidstr = $('#isforbid').val();
+		var isforbid = (isforbidstr == "forbid");
 		$("body").addClass("loading");
 		$.post('/search/send2query', {
+			'isforbid': isforbid,
 			'typeInput': typeInput,
 			'dataInput': dataInput
 		}, function(data) {
