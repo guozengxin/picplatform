@@ -1,4 +1,4 @@
-{% extends "index/base.html" %}
+{% extends "shop/base.html" %}
 {% load url from future %}
 
 {% block title %} 购物vr forceQuery工具 {% endblock %}
@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+{% include "shop/navbar.html" %}
 <legend>
   购物vr forceQuery工具
 </legend>

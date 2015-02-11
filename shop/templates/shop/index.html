@@ -1,0 +1,58 @@
+{% extends "shop/base.html" %}
+{% load url from future %}
+
+{% block title %} 购物常用链接 {% endblock %}
+
+{% block style %}
+	<link type="text/css" href="{{ STATIC_URL }}css/index.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  {% include "shop/navbar.html" %}
+  <div class="row">
+	<div class="col-md-3 link-block">
+		<legend>
+			<small>数据查询</small>
+		</legend>
+		<ul class="link">
+			<li><a href="http://10.12.137.218:8989/edit_offsum" target="_blank">magic-offsum</a></li>
+			<li><a href="http://10.12.137.218:8989/view_onsum" target="_blank">magic-onsum</a></li>
+			<li><a href="http://10.12.137.218:8989/view_price_verify" target="_blank">price-daemon</a></li>
+            <li><a href="http://10.11.215.156/readdocinfo/index.php" target="_blank">线上docinfo查询</a></li>
+		</ul>
+	</div>
+	<div class="col-md-3 link-block">
+		<legend>
+			<small>调试工具</small>
+		</legend>
+		<ul class="link">
+          <li><a href="{% url 'shop:cache' %}" target="_blank">cache调试</a></li>
+          <li><a href="http://10.12.8.170/shopping_searchhub.html" target="_blank">searchhub调试</a></li>
+		</ul>
+	</div>
+	<div class="col-md-3 link-block">
+		<legend>
+			<small>其他工具</small>
+		</legend>
+		<ul class="link">
+			<li><a href="{% url 'shop:shopvr-forcequery' %}" target="_blank">购物vr forceQuery</a></li>
+			<li><a href="http://10.134.60.172/u/inc/encode_decode.html" target="_blank">url编解码</a></li>
+            <li><a href="{% url 'search:docid2url' %}" target="_blank">url和docid批量转换</a></li>
+		</ul>
+	</div>
+	<div class="col-md-3 link-block">
+		<legend>
+			<small>平台入口</small>
+		</legend>
+		<ul class="link">
+			<li><a href="http://10.12.137.218:8989/" target="_blank">shopping-tools</a></li>
+			<li><a href="http://10.141.75.96:23188/cluster" target="_blank">晨曦 Jobtracker</a></li>
+			<li><a href="http://cloud101417594.wd.nm.ss.nop.sogou-op.org:19888/jobhistory/" target="_blank">晨曦 Job History</a></li>
+			<li><a href="http://xwiki.sogou-inc.com/xwiki/bin/view/VS_Department/%E5%9B%BE%E7%89%87%E6%90%9C%E7%B4%A2" target="_blank">图片搜索xwiki</a></li>
+			<li><a href="http://10.14.135.175/SpiderServiceStat/login.html" target="_blank">Spider奥德赛系统</a></li>
+            <li><a href="http://vs.sogou-inc.com/stats/" target="_blank">垂搜绿皮</a></li>
+            <li><a href="http://dev.sogou-inc.com/stats/index.php" target="_blank">网页绿皮</a></li>
+		</ul>
+	</div>
+  </div>
+{% endblock %}
