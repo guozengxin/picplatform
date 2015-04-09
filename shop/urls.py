@@ -9,4 +9,6 @@ urlpatterns = patterns(
     url(r'^$', views.index, name='index'),
     url(r'^cache$', views.cache, name='cache'),
     url(r'^cachepost$', views.cachepost, name='cachepost'),
+    url(r'^query$', views.query, name='query'),
+    url(r'^querypost$', views.querypost, name='querypost'),
 )

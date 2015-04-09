@@ -40,14 +40,11 @@ def run_shopvr_force(request):
     try:
         for address in ('nginx01.shop.sjs', 'nginx01.shop.yf'):
             ip = commands.getoutput('host ' + address).strip().split(' ')[-1]
-            print ip
             vrurl = vrBase % (ip, query)
-            print vrurl
             utility.refreshUrl(vrurl)
             ret['info'] += '刷新 <a href="%s">%s</a> 成功<br>' % (vrurl, vrurl)
         time.sleep(2)
         for url in refreshList:
-            print url
             utility.refreshUrl(url)
             ret['info'] += '刷新 <a href="%s">%s</a> 成功<br>' % (url, url)
     except Exception, e:
@@ -63,7 +60,6 @@ def cache(request):
 def cachepost(request):
     sstype = request.POST.get("sstype")
     host = request.POST.get("host")
-    print sstype
     if sstype == "queryLine":
         queryLine = request.POST.get("queryLine")
         result = cacheRequest.sendQueryLine(host, queryLine)
@@ -73,7 +69,7 @@ def cachepost(request):
         enc = "utf-16-le"
         param["hash"] = u'12345'.encode(enc)
         param["queryType"] = u'querydataupdate'.encode(enc)
-        param["update"] = u'5'.encode(enc)
+        param["update"] = u'0'.encode(enc)
         paramData = urllib.urlencode(param)
         result = cacheRequest.sendRequest(host, paramData)
         return HttpResponse(result, content_type="application/xml")
@@ -84,6 +80,27 @@ def cachepost(request):
             if value is None or len(value) == 0:
                 continue
             if key == "sstype" or key == "host":
+                continue
+            param[key] = value.encode('utf-16-le')
+        hashstr = request.POST.get('queryString').encode('utf8')
+        param['hash'] = md5.new(hashstr).hexdigest().decode('utf8').encode('utf-16-le')
+        paramData = urllib.urlencode(param)
+        result = cacheRequest.sendRequest(host, paramData)
+        return HttpResponse(result, content_type="application/xml")
+
+
+def query(request):
+    return render_to_response('shop/query.html', context_instance=RequestContext(request))
+
+
+def querypost(request):
+        host = request.POST.get("host")
+        param = {}
+        for key in request.POST:
+            value = request.POST.get(key)
+            if value is None or len(value) == 0:
+                continue
+            if key == "host":
                 continue
             param[key] = value.encode('utf-16-le')
         hashstr = request.POST.get('queryString').encode('utf8')

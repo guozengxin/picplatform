@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}image/shop-favicon.ico?v=2" type="image/x-icon">
+    <title>购物query</title>
+    <!-- <link type="text/css" href="{{ STATIC_URL }}css/shopvr-forcequery.css" rel="stylesheet"> -->
+    <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form action="querypost" method="post">
+      <table>
+        <tr class="q">
+          <td>queryType:</td>
+          <td>
+            <select type="text" name="queryType" style="width: 280px">
+              <option value="query">query</option>
+              <option value="urllookup">urllookup</option>
+              <option value="promotionquery">promotionquery</option>
+              <option value="docid2summary">docid2summary</option>
+              <option value="similarquery">similarquery</option>
+              <option value="recommendquery">recommendquery</option>
+              <option value="stypequery">stypequery</option>
+              <option value="discountquery">discountquery</option>
+              <option value="sitequery1">sitequery1</option>
+              <option value="sitequery2">sitequery2</option>
+              <option value="salesquery">salesquery</option>
+            </select>
+          </td>
+        </tr>
+        <tr class="q"><td>queryString:</td><td><input type="text" name="queryString" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>queryFrom:</td><td><input type="text" name="queryFrom" style="width: 280px" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>isShopVR:</td><td><input type="text" name="isShopVR" style="width: 280px" maxlength="1000"></td><td></td></tr>
+        <tr><td>query服务器:</td>
+          <td><select type="text" name="host" style="width: 280px">
+              <option value="10.134.35.82:28016">[郭增新-query]10.134.35.82:28016</option>
+            </select>
+          </td><td><input type="submit" value="发送" style="width: 100px"></td>
+        </tr>
+      </table>
+    </form>
+    <p>添加query地址: 10.11.215.156:/search/guozengxin/task/picplatform/shop/templates/shop/query.html</p>
+  </body>
+</html>

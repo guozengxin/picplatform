@@ -28,6 +28,7 @@ def sendQueryLine(addr, queryLine):
 def sendRequest(addr, params):
     headers = {"Content-type": "application/x-www-form-urlencoded", "Connection": "Keep-Alive"}
     conn = httplib.HTTPConnection(addr)
+    print params, headers, addr
     conn.request('POST', "/", params, headers)
     response = conn.getresponse()
     result = response.read()
