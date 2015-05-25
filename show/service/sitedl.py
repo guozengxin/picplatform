@@ -24,7 +24,9 @@ def formatResult(rows):
     result = []
     fmtR = lambda x: '%.2f%%' % (float(x) * 100)
     for row in rows:
-        item = {fetchItem[i]: row[i] for i in range(len(fetchItem))}
+        item = {}
+        for i in range(len(fetchItem)):
+            item[fetchItem[i]] = row[i]
         item['successR'] = fmtR(item['successR'])
         item['errorR'] = fmtR(item['errorR'])
         item['loadingR'] = fmtR(item['loadingR'])
