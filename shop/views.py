@@ -65,14 +65,17 @@ def cachepost(request):
         result = cacheRequest.sendQueryLine(host, queryLine)
         return HttpResponse(result, content_type="application/xml")
     elif sstype == "queryUpdate":
+        groups = ['1', '3', '5', '7', '9', '11', '13', '15', '16', '18', '20']
         param = {}
         enc = "utf-16-le"
         param["hash"] = u'12345'.encode(enc)
         param["queryType"] = u'querydataupdate'.encode(enc)
-        param["update"] = u'0'.encode(enc)
-        paramData = urllib.urlencode(param)
-        result = cacheRequest.sendRequest(host, paramData)
-        return HttpResponse(result, content_type="application/xml")
+        for group in groups:
+            param["update"] = group.decode('utf8').encode(enc)
+            paramData = urllib.urlencode(param)
+            result = cacheRequest.sendRequest(host, paramData)
+        ret = {'ret': True}
+        return HttpResponse(json.dumps(ret))
     else:
         param = {}
         for key in request.POST:
@@ -94,17 +97,17 @@ def query(request):
 
 
 def querypost(request):
-        host = request.POST.get("host")
-        param = {}
-        for key in request.POST:
-            value = request.POST.get(key)
-            if value is None or len(value) == 0:
-                continue
-            if key == "host":
-                continue
-            param[key] = value.encode('utf-16-le')
-        hashstr = request.POST.get('queryString').encode('utf8')
-        param['hash'] = md5.new(hashstr).hexdigest().decode('utf8').encode('utf-16-le')
-        paramData = urllib.urlencode(param)
-        result = cacheRequest.sendRequest(host, paramData)
-        return HttpResponse(result, content_type="application/xml")
+    host = request.POST.get("host")
+    param = {}
+    for key in request.POST:
+        value = request.POST.get(key)
+        if value is None or len(value) == 0:
+            continue
+        if key == "host":
+            continue
+        param[key] = value.encode('utf-16-le')
+    hashstr = request.POST.get('queryString').encode('utf8')
+    param['hash'] = md5.new(hashstr).hexdigest().decode('utf8').encode('utf-16-le')
+    paramData = urllib.urlencode(param)
+    result = cacheRequest.sendRequest(host, paramData)
+    return HttpResponse(result, content_type="application/xml")
