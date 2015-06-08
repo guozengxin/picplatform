@@ -121,7 +121,7 @@ def searchhubpost(request):
             continue
         if key == "host":
             continue
-        param[key] = value
+        param[key] = value.encode('gbk')
     paramData = urllib.urlencode(param)
     result = cacheRequest.sendRequest(host, paramData)
     result = result.decode('utf-16-le')
