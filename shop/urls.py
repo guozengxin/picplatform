@@ -11,4 +11,6 @@ urlpatterns = patterns(
     url(r'^cachepost$', views.cachepost, name='cachepost'),
     url(r'^query$', views.query, name='query'),
     url(r'^querypost$', views.querypost, name='querypost'),
+    url(r'^searchhub$', views.searchhub, name='searchhub'),
+    url(r'^searchhubpost$', views.searchhubpost, name='searchhubpost'),
 )

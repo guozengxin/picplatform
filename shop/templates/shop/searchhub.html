@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}image/shop-favicon.ico?v=2" type="image/x-icon">
+    <title>购物cache</title>
+    <!-- <link type="text/css" href="{{ STATIC_URL }}css/shopvr-forcequery.css" rel="stylesheet"> -->
+    <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form action="searchhubpost" method="post">
+      <table>
+        <tr class="q">
+          <td>queryType:</td>
+          <td>
+            <select type="text" name="queryType" style="width: 280px">
+              <option value="query">query</option>
+              <option value="urllookup">urllookup</option>
+              <option value="promotionquery">promotionquery</option>
+              <option value="docid2summary">docid2summary</option>
+              <option value="similarquery">similarquery</option>
+              <option value="recommendquery">recommendquery</option>
+              <option value="stypequery">stypequery</option>
+              <option value="discountquery">discountquery</option>
+              <option value="sitequery1">sitequery1</option>
+              <option value="sitequery2">sitequery2</option>
+              <option value="salesquery">salesquery</option>
+            </select>
+          </td>
+        </tr>
+        <tr class="q"><td>queryString:</td><td><input type="text" name="queryString" style="width: 280px" maxlength="1000" value="三星手机"></td></tr>
+        <tr class="q"><td>title:</td><td><input type="text" name="title" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>forceQuery:</td><td><input type="text" name="forceQuery" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>queryFrom:</td><td><input type="text" name="queryFrom" style="width: 280px" maxlength="1000" value="shop"></td><td></td></tr>
+        <tr class="q"><td>parity:</td><td><input type="text" name="parity" style="width: 280px" maxlength="1000" value="a2141f8a-f2c8-4900-be65-8460671e7020"></td></tr>
+        <tr class="q"><td>debug:</td><td><input type="text" name="debug" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>forceQueryWithoutSave:</td><td><input type="text" name="forceQueryWithoutSave" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>logLevel:</td><td><input type="text" name="logLevel" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>start:</td><td><input type="text" name="start" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>docList:</td><td><input type="text" name="docList" style="width: 280px" maxlength="1000"></td></tr>
+        <tr class="q"><td>end:</td><td><input type="text" name="end" style="width: 280px" maxlength="1000"></td></tr>
+
+        <tr><td>searchhub服务器:</td>
+          <td><select type="text" name="host" style="width: 280px">
+              <option value="10.134.35.82:5505">[GZX]10.134.35.82:5505</option>
+              <option value="searchhub13.shop.sjs:5555">searchhub13.shop.sjs:5555</option>
+              <option value="searchhub13.shop.yf:5555">searchhub13.shop.yf:5555</option>
+              <option value="searchhub01.shop.sjs:5555">searchhub01.shop.sjs:5555</option>
+              <option value="searchhub01.shop.yf:5555">searchhub01.shop.yf:5555</option>
+            </select>
+          </td><td><input type="submit" value="发送" style="width: 100px"></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

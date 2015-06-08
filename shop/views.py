@@ -9,6 +9,7 @@ import urllib
 import time
 import commands
 import md5
+import re
 
 from service import utility
 from service import cacheRequest
@@ -90,6 +91,44 @@ def cachepost(request):
         paramData = urllib.urlencode(param)
         result = cacheRequest.sendRequest(host, paramData)
         return HttpResponse(result, content_type="application/xml")
+
+
+def searchhub(request):
+    return render_to_response('shop/searchhub.html', context_instance=RequestContext(request))
+
+
+def strQ2B(ustring):
+    """把字符串全角转半角"""
+    rstring = ""
+    for uchar in ustring:
+        inside_code = ord(uchar)
+        if inside_code == 0x3000:
+            inside_code = 0x0020
+        else:
+            inside_code -= 0xfee0
+        if inside_code < 0x0020 or inside_code > 0x7e:      # 转完之后不是半角字符返回原来的字符
+            rstring += uchar
+        rstring += unichr(inside_code)
+    return rstring
+
+
+def searchhubpost(request):
+    host = request.POST.get("host")
+    param = {}
+    for key in request.POST:
+        value = request.POST.get(key)
+        if value is None or len(value) == 0:
+            continue
+        if key == "host":
+            continue
+        param[key] = value
+    paramData = urllib.urlencode(param)
+    result = cacheRequest.sendRequest(host, paramData)
+    result = result.decode('utf-16-le')
+    result = result.encode('gb18030')
+    result = '<?xml version="1.0" encoding="gb18030"?>\n' + result
+    result = re.sub('</DOCUMENT>.*', '</DOCUMENT>', result)
+    return HttpResponse(result, content_type="application/xml")
 
 
 def query(request):
