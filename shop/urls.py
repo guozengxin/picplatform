@@ -13,4 +13,6 @@ urlpatterns = patterns(
     url(r'^querypost$', views.querypost, name='querypost'),
     url(r'^searchhub$', views.searchhub, name='searchhub'),
     url(r'^searchhubpost$', views.searchhubpost, name='searchhubpost'),
+    url(r'^sqo$', views.sqo, name='sqo'),
+    url(r'^sqopost$', views.sqopost, name='sqopost'),
 )

@@ -150,3 +150,22 @@ def querypost(request):
     paramData = urllib.urlencode(param)
     result = cacheRequest.sendRequest(host, paramData)
     return HttpResponse(result, content_type="application/xml")
+
+
+def sqo(request):
+    return render_to_response('shop/sqo.html', context_instance=RequestContext(request))
+
+
+def sqopost(request):
+    host = request.POST.get("host")
+    param = {}
+    for key in request.POST:
+        value = request.POST.get(key)
+        if value is None or len(value) == 0:
+            continue
+        if key == "host":
+            continue
+        param[key] = value.encode('utf-16-le')
+    paramData = urllib.urlencode(param)
+    result = cacheRequest.sendRequest(host, paramData)
+    return HttpResponse(result, content_type="application/xml")
