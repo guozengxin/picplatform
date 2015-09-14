@@ -6,18 +6,24 @@ $(function() {
 	init();
 
 	function init() {
+		sstype = $("input[name='sstype']:checked").val();
+		switchType(sstype);
 		$('input[name="sstype"]:radio').change(function() {
-			if (this.value == 'query') {
-				$(".q").show();
-				$(".ql").hide();
-			} else if (this.value == 'queryLine') {
-				$(".ql").show();
-				$(".q").hide();
-			} else if (this.value == 'queryUpdate') {
-				$(".q").hide();
-				$(".ql").hide();
-			}
+			switchType(this.value);
 		});
+	}
+
+	function switchType(t) {
+		if (t == 'query') {
+			$(".q").show();
+			$(".ql").hide();
+		} else if (t == 'queryLine') {
+			$(".ql").show();
+			$(".q").hide();
+		} else if (t == 'queryUpdate') {
+			$(".q").hide();
+			$(".ql").hide();
+		}
 	}
 
 });
