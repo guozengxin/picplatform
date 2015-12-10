@@ -15,4 +15,6 @@ urlpatterns = patterns(
     url(r'^searchhubpost$', views.searchhubpost, name='searchhubpost'),
     url(r'^sqo$', views.sqo, name='sqo'),
     url(r'^sqopost$', views.sqopost, name='sqopost'),
+    url(r'^productinfo$', views.productinfo, name='productinfo'),
+    url(r'^productinfopost$', views.productinfopost, name='productinfopost'),
 )

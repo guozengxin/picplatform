@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}image/shop-favicon.ico?v=2" type="image/x-icon">
+    <title>购物productinfo</title>
+    <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/productinfo.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form action="productinfopost" method="post">
+      <table>
+        <tr class="q"><td>requestFrom:</td>
+          <td><select type="text" name="requestFrom" style="width: 280px">
+              <option value="sqo">sqo</option>
+              <option value="norm_docdis">norm_docdis</option>
+              <option value="inst_docdis">inst_docdis</option>
+        </tr>
+        <tr class="q"><td>xpage:</td><td><textarea name="xpage" style="width: 280px" rows="8"></textarea></td><td></td></tr>
+        <tr class="q"><td>title:</td><td><input type="text" name="title" style="width: 280px" value="太力 真空收纳压缩袋 衣物整理袋15件套电泵款2立体2特大4大2中4卷压【图片 价格 品牌 报价】-京东" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>url:</td><td><input type="text" name="url" style="width: 280px" value="http://item.jd.com/1131448183.html" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>bread:</td><td><input type="text" name="bread" style="width: 280px" value="收纳用品" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>price:</td><td><input type="text" name="price" style="width: 280px" value="28.040001" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>originalPrice:</td><td><input type="text" name="originalPrice" style="width: 280px" value="29.520000" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>type:</td><td><input type="text" name="type" style="width: 280px" value="19" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>priceSeq:</td><td><input type="text" name="priceSeq" style="width: 280px" value="1446104992:28.040001;1445372572:28.340000;1445238695:28.340000;1445205258:28.340000" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>isDefaultThumb:</td><td><input type="text" name="isDefaultThumb" style="width: 280px" value="0" maxlength="1000"></td><td></td></tr>
+        <tr class="q"><td>parity:</td><td><input type="text" name="parity" style="width: 280px" value="" maxlength="1000"></td><td></td></tr>
+        <tr><td>productinfo服务器:</td>
+          <td><select type="text" name="host" style="width: 280px">
+              <option value="10.134.35.82:8150">[郭增新-sqo]10.134.35.82:8150</option>
+            </select>
+          </td><td><input type="submit" value="发送" style="width: 100px"></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
